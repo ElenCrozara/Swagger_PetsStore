@@ -1,0 +1,1504 @@
+{
+	"info": {
+		"_postman_id": "991e84fd-0892-45ba-9352-533eb7658ebf",
+		"name": "Swagger_PetsStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21489757"
+	},
+	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Status_available",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se um array de Pets)",
+									"pm.test(\"Retorna um array de Pets com status 'available'\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"array\"); // Espera um array",
+									"",
+									"    if (responseJson.length > 0) {",
+									"        responseJson.forEach(pet => {",
+									"            pm.expect(pet).to.be.an(\"object\");",
+									"            pm.expect(pet).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"            pm.expect(pet).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"            pm.expect(pet).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"            pm.expect(pet.status).to.equal(\"available\"); // Garante que o status é 'available'",
+									"            ",
+									"            // Validações adicionais para 'category', 'photoUrls', 'tags'",
+									"            if (pet.hasOwnProperty('category') && pet.category !== null) {",
+									"                pm.expect(pet.category).to.be.an(\"object\");",
+									"                pm.expect(pet.category).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"                pm.expect(pet.category).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"            }",
+									"            pm.expect(pet).to.have.property(\"photoUrls\").and.to.be.an(\"array\");",
+									"            if (pet.photoUrls.length > 0) {",
+									"                pet.photoUrls.forEach(url => pm.expect(url).to.be.a(\"string\"));",
+									"            }",
+									"            pm.expect(pet).to.have.property(\"tags\").and.to.be.an(\"array\");",
+									"            if (pet.tags.length > 0) {",
+									"                pet.tags.forEach(tag => {",
+									"                    pm.expect(tag).to.be.an(\"object\");",
+									"                    pm.expect(tag).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"                    pm.expect(tag).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"                });",
+									"            }",
+									"        });",
+									"    } else {",
+									"        console.warn(\"Nenhum pet com status 'available' foi retornado.\");",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status_pending",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=pending",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status_sold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=sold",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "sold"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PetId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se um objeto Pet)",
+									"pm.test(\"Retorna um objeto Pet com ID esperado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson.id).to.equal(2); // Valida o ID específico da requisição",
+									"    pm.expect(responseJson).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"",
+									"    // Validações adicionais para 'category', 'photoUrls', 'tags'",
+									"    if (responseJson.hasOwnProperty('category') && responseJson.category !== null) {",
+									"        pm.expect(responseJson.category).to.be.an(\"object\");",
+									"        pm.expect(responseJson.category).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"        pm.expect(responseJson.category).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"    }",
+									"    pm.expect(responseJson).to.have.property(\"photoUrls\").and.to.be.an(\"array\");",
+									"    if (responseJson.photoUrls.length > 0) {",
+									"        responseJson.photoUrls.forEach(url => pm.expect(url).to.be.a(\"string\"));",
+									"    }",
+									"    pm.expect(responseJson).to.have.property(\"tags\").and.to.be.an(\"array\");",
+									"    if (responseJson.tags.length > 0) {",
+									"        responseJson.tags.forEach(tag => {",
+									"            pm.expect(tag).to.be.an(\"object\");",
+									"            pm.expect(tag).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"            pm.expect(tag).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/2",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pet_notFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta de Erro",
+									"pm.test(\"Retorna mensagem de erro para Pet não encontrado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.equal(\"Pet not found\"); // Valida a mensagem específica",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/00",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apdate_pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se o Pet atualizado)",
+									"pm.test(\"Retorna o objeto Pet atualizado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson.id).to.equal(2);",
+									"    pm.expect(responseJson).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.name).to.equal(\"doggie 2\"); // Verifica se o nome foi atualizado na resposta",
+									"    pm.expect(responseJson).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.status).to.equal(\"available\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie 2\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apdate_badRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 400 Bad Request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta de Erro",
+									"pm.test(\"Retorna mensagem de erro para requisição inválida\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    // A mensagem exata pode variar (ex: \"Bad Request\", \"Invalid ID supplied\")",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": ,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created_pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    // A API Swagger Petstore retorna 200 OK para criação bem-sucedida,",
+									"    // embora 201 Created seria mais semanticamente correto.",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se o Pet criado)",
+									"pm.test(\"Retorna o objeto Pet criado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson.id).to.equal(3);",
+									"    pm.expect(responseJson).to.have.property(\"name\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.name).to.equal(\"Ruby\");",
+									"    pm.expect(responseJson).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.status).to.equal(\"sold\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 3,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"felino\"\n  },\n  \"name\": \"Ruby\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"adulto\"\n    }\n  ],\n  \"status\": \"sold\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created_invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 400 Bad Request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta de Erro",
+									"pm.test(\"Retorna mensagem de erro para requisição inválida\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    // A mensagem exata pode variar (ex: \"Bad Request\", \"Invalid ID supplied\")",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": ,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"felino\"\n  },\n  \"name\": \"Douglas\",\n  \"photoUrls\": [\n    true\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"filhote\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta de Sucesso (geralmente uma mensagem de sucesso)",
+									"pm.test(\"Retorna mensagem de sucesso na exclusão\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.equal(\"11\"); // Valida a mensagem específica com o ID do Pet excluído",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "api_key",
+								"value": "api_key",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/11",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_notFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "api_key",
+								"value": "api_key",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/45",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"45"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "api_key",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "api_key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se um objeto de inventário)",
+									"pm.test(\"Retorna um objeto de inventário com contagens de status\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"",
+									"    // Verifica se as propriedades são números, representando a contagem de pets por status",
+									"    for (const status in responseJson) {",
+									"        if (responseJson.hasOwnProperty(status)) {",
+									"            pm.expect(responseJson[status]).to.be.a(\"number\");",
+									"            pm.expect(responseJson[status]).to.be.at.least(0); // A contagem não pode ser negativa",
+									"        }",
+									"    }",
+									"",
+									" ",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/store/inventory",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"store",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OrderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se um objeto Order)",
+									"pm.test(\"Retorna um objeto Order com ID esperado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"petId\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"quantity\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"shipDate\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"complete\").and.to.be.a(\"boolean\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/store/order/2",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order_notFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta de Erro",
+									"pm.test(\"Retorna mensagem de erro para Ordem não encontrada\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.equal(\"Order not found\"); // Valida a mensagem específica",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/store/order/000",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order",
+								"000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created_order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se a Ordem criada)",
+									"pm.test(\"Retorna o objeto Order criado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson.id).to.equal(9);",
+									"    pm.expect(responseJson).to.have.property(\"status\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.status).to.equal(\"placed\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 9,\n\"petId\": 5,\n\"quantity\": 0,\n\"shipDate\": \"2025-05-22T01:03:30.336Z\",\n\"status\": \"placed\",\n\"complete\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/store/order",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta de Sucesso (geralmente uma mensagem de sucesso)",
+									"pm.test(\"Retorna mensagem de sucesso na exclusão\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.equal(\"5\"); // Valida a mensagem específica com o ID da Ordem excluída",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"id\": 1,0,\n\"petId\": 3,\n\"quantity\": 0,\n\"shipDate\": \"2025-05-22T01:03:30.336Z\",\n\"status\": \"placed\",\n\"complete\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/store/order/4",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"store",
+								"order",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "api_key",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "api_key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreatWihtList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"// Validar a Estrutura da Resposta (geralmente uma mensagem de sucesso)",
+									"pm.test(\"Retorna mensagem de sucesso na criação de usuários\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    // A mensagem pode variar (ex: \"ok\", \"User created\")",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"id\": 2505643,\n    \"username\": \"Jose\",\n    \"firstName\": \"Oliveira\",\n    \"lastName\": \"Motorola\",\n    \"email\": \"jose@teste.com.br\",\n    \"password\": \"senha1234\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/createWithList",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"createWithList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta (espera-se um objeto User)",
+									"pm.test(\"Retorna um objeto User com nome de usuário esperado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"",
+									"    pm.expect(responseJson).to.have.property(\"id\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"username\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.username).to.equal(\"Jose\"); // Valida o nome de usuário da requisição",
+									"    pm.expect(responseJson).to.have.property(\"firstName\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"lastName\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"email\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"password\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"phone\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"userStatus\").and.to.be.a(\"number\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/Jose",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"Jose"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User_notFound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 404 Not Found\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta de Erro",
+									"pm.test(\"Retorna mensagem de erro para Usuário não encontrado\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.equal(\"User not found\"); // Valida a mensagem específica",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/Zezinho",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"Zezinho"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Validar a Estrutura da Resposta de Sucesso (geralmente um token ou mensagem)",
+									"pm.test(\"Retorna mensagem de login bem-sucedido e token/sessão\", function () {",
+									"  ",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.be.an(\"object\");",
+									"    pm.expect(responseJson).to.have.property(\"code\").and.to.be.a(\"number\");",
+									"    pm.expect(responseJson.code).to.equal(200);",
+									"    pm.expect(responseJson).to.have.property(\"type\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.type).to.equal(\"unknown\");",
+									"    pm.expect(responseJson).to.have.property(\"message\").and.to.be.a(\"string\");",
+									"    pm.expect(responseJson.message).to.include(\"logged in user session:\"); // Verifica parte da mensagem",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/login?username=Maria&password=senha123",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Maria"
+								},
+								{
+									"key": "password",
+									"value": "senha123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MethodNotAllowed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validar o Status da Resposta",
+									"pm.test(\"Status da resposta é 405 Method Not Allowed\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});",
+									"",
+									"// Validar o Tempo de Resposta",
+									"pm.test(\"Tempo de resposta é menor que 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Elen",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "senha123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "api_key",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "api_key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
