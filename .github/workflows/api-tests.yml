@@ -1,0 +1,46 @@
+name: Testes de API com Newman e Postman
+
+on:
+  push:
+    branches:
+      - main # O workflow será acionado sempre que houver um push para o branch 'main'
+
+jobs:
+  run-api-tests:
+    runs-on: ubuntu-latest # O job será executado em um ambiente Ubuntu
+
+    steps:
+    - name: ⬇️ Checkout do Código
+      uses: actions/checkout@v4
+      with:
+        # Garante que todo o histórico seja buscado, se necessário, para artefatos ou outras operações
+        fetch-depth: 0 
+      # Documentação: Este passo faz o clone do seu repositório para o ambiente de execução do GitHub Actions.
+      # É essencial para que o workflow tenha acesso aos seus arquivos de coleção do Postman.
+
+    - name: ⚙️ Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18' # Você pode ajustar a versão do Node.js conforme sua preferência ou necessidade
+      # Documentação: Este passo instala a versão especificada do Node.js no ambiente.
+      # O Newman é um pacote Node.js, então precisamos do Node.js instalado para executá-lo.
+
+    - name: 🚀 Instalar Newman e htmlextra Reporter
+      run: npm install -g newman newman-reporter-htmlextra
+      # Documentação: Instala globalmente o Newman e o reporter HTML extra.
+      # 'npm install -g' instala pacotes Node.js globalmente, tornando-os acessíveis a partir da linha de comando.
+
+    - name: 🧪 Executar Testes de API
+      run: newman run ./Swagger_PetsStore_postman_.json -r htmlextra --reporter-htmlextra-title Relatório --reporter-htmlextra-titleSize 3 --reporter-htmlextra-testPaging --reporter-htmlextra-browserTitle Testes --reporter-htmlextra-omitHeaders
+      # Documentação: Este é o comando principal que executa seus testes.
+      # Certifique-se de que o caminho para o seu arquivo .json da coleção esteja correto em relação à raiz do seu repositório.
+      # Aqui, assumimos que 'Swagger_PetsStore_postman_.json' está na raiz do seu repositório.
+
+    - name: 📤 Publicar Relatório de Testes
+      uses: actions/upload-artifact@v4
+      with:
+        name: Relatorio-Newman-API-Tests
+        path: newman # O Newman gera o relatório dentro de uma pasta 'newman' por padrão.
+      # Documentação: Este passo empacota os arquivos gerados (o relatório HTML) e os disponibiliza como "artefatos" do workflow.
+      # Você poderá baixar esses artefatos na página do GitHub Actions após a execução do workflow.
+      # A pasta 'newman' é onde o newman-reporter-htmlextra salva os relatórios por padrão.
